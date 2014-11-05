@@ -10,16 +10,17 @@ Needs:
 	- check other users current board state
 
 Tables:
-- Users
-	- Name
+- Users(has many)
+	- First Name
+	- Password
 	- Age
-	-
-- Hangman(wins/losses)
+	- Spirit Animal
+- Hangman
  	- User ID
- 	- won/lost
-- TicTacToe(wins/losses)
+ 	- win/lost
+- TicTacToe
 	- User ID
-	- won/lost
+	- win/lost
 
 
 Hangman:
