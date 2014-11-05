@@ -1,0 +1,47 @@
+Needs:
+- Users interatcing
+	- Have users send messages to each other
+- Scoreboard
+- Profile page with wins
+- Colorlovers to adjust pages
+- Multiplayer
+	- Use Javascript to update screen every X amount of seconds
+	- check timestamp('is this the most recent timestamp')('created at timestamp')
+	- check other users current board state
+
+Tables:
+- Users
+	- Name
+	- Age
+	-
+- Hangman(wins/losses)
+ 	- User ID
+ 	- won/lost
+- TicTacToe(wins/losses)
+	- User ID
+	- won/lost
+
+
+Hangman:
+- User Interface(HTML/JS/CSS)
+	- Main page needs (guess letter and lines for letters)
+	- Guess
+		- Letter is in word
+			- Show ever instance
+			- Then route back to guess OR to WIN
+		- Letter is NOT in word
+			- Add letter to list
+			- Remove one life
+			- Then route back to guess or to LOSE
+		- Letter was already guessed
+			- Message saying "Already guessed"
+			- The route back to guess or to LOSE
+- Front end logic(when they pick E what happens)
+- Backend logic
+	- Word should be on the server
+
+Tic Tac Toe:
+
+
+
+
