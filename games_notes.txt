@@ -15,9 +15,11 @@ Tables:
 	- Password
 	- Age
 	- Spirit Animal
+
 - Hangman
  	- User ID
- 	- win/lost
+ 	- Word 
+ 	-
 - TicTacToe
 	- User ID
 	- win/lost

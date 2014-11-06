@@ -5,6 +5,7 @@ class SessionsController < ApplicationController
   end
 
   post '/new' do
+    authenticate!
     user = User.find_by({username: params[:user][:username]})
     if user.password == params[:password]
       session[:current_user] = user.id
@@ -14,8 +15,20 @@ class SessionsController < ApplicationController
     end
   end
 
+  delete '/' do
+    authenticate!
+    session[:current_user] = nil
+    redirect '/'
+  end
+
   get '/index' do
+    authenticate!
     erb :'/sessions/index'
+  end
+
+  get '/show' do
+    authenticate!
+    erb :'/sessions/show'
   end
 
 end

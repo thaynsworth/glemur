@@ -9,6 +9,12 @@
 </head>
 <body>
 
+	<% if current_user %>
+    <%= erb :'_navigation_user'%>
+  <% else %>
+    <%= erb :'_navigation_non_user'%>
+	<% end %>
+
 	<%= yield %>
 	
 </body>
