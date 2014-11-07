@@ -17,9 +17,12 @@ Tables:
 	- Spirit Animal
 
 - Hangman
+	- Game ID
  	- User ID
  	- Word 
- 	-
+ 	- Game state (shown on the screen first)
+ 	- # of wrong guesses 
+
 - TicTacToe
 	- User ID
 	- win/lost
@@ -42,6 +45,11 @@ Hangman:
 - Front end logic(when they pick E what happens)
 - Backend logic
 	- Word should be on the server
+Hints
+	- find game id with #
+	- check word for letter
+	- respond with affected game state(update the DOM to show game state) and wrong letters
+	- Canvas https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
 
 Tic Tac Toe:
 

@@ -5,7 +5,6 @@ class SessionsController < ApplicationController
   end
 
   post '/new' do
-    authenticate!
     user = User.find_by({username: params[:user][:username]})
     if user.password == params[:password]
       session[:current_user] = user.id
