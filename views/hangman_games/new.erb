@@ -8,32 +8,58 @@
 
 	<div>
 	<% @letters.each do |letter| %>
-		<button><%= letter %></button>
+		<button class='letter-button' data-letter="<%= letter %>"><%= letter %></button>
 	<% end %>
 	</div>
-
-
 <script>
+
+var gameid;
+
+
+
+
+function newGame() {
+	$.ajax({
+		url: "/hangman_games/new",
+		method: "POST",
+		dataType: "json",
+		success: function(data){
+			createLetterArray(data)
+			gameid = data.gameid;
+		}
+	});
+}
+
+function createLetterArray(data) {
+	var newArray = data.game_state.split('')
+	$(".word").text(newArray);
+}
+
+function guessLetter(e){
+	var letter = $(this).data('letter');
+
+	$.ajax({
+		url: '/hangman_games/' + gameid + '/guess',
+		method: 'PATCH',
+		data: {guess: letter},
+		success: function(data){
+			alert('Data in console');
+			console.log(data);
+			$(".word").text(data.game_state)
+		}
+	}); 
+}
+
+
 
 $(function(){
 	$button = $(".new_game");
 
 	$button.on( "click", newGame );
 
-	function newGame() {
-		$.ajax({
-			url: "/hangman_games/new",
-			method: "POST",
-			dataType: "json",
-			success: function(data){
-				appendWordToPage(data.word)
-			}
-		});
-	}
+	$('.letter-button').on('click', guessLetter);
 
-	function appendWordToPage(data) {
-		$(".word").append(data);
-	}
+	$(this).remove();
 });
-
+	
 </script>
