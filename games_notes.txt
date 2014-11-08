@@ -51,8 +51,35 @@ Hints
 	- respond with affected game state(update the DOM to show game state) and wrong letters
 	- Canvas https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial
 
-Tic Tac Toe:
+Junk notes
+// function checkLetter(ltr) {
+// 	var index = 0;
+// 	for( i=0; i < chars.length; i++ ) {
 
+// 		if(ltr === chars[i]) {
+// 			array[index] = ltr; 
+// 			console.log(array); 
+// 		}
+// 		index++;
+// 	}
+// }
+
+get '/' do
+
+  # Let's get some colors!
+  api_response = HTTParty.get("http://www.colourlovers.com/api/palettes/random")
+  @title = api_response['palettes']['palette']['title']
+  @hexs = api_response['palettes']['palette']['colors']['hex']
+
+  # Write it shakespeare!
+  api_response = HTTParty.get("http://www.shakeitspeare.com/api/sentence")
+  @sentence = api_response['sentence']
+
+patch request
+  state = game.game_state.dup
+  state[idx] = letter
+  game.game_state = state
+  game.save
 
 
 

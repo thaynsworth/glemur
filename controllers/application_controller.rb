@@ -6,6 +6,8 @@ class ApplicationController < Sinatra::Base
   :database => "glemur_db"
   })
 
+  register Sinatra::ActiveRecordExtension
+
   set :views, File.expand_path('../../views', __FILE__)
   set :public_folder, File.expand_path('../../public', __FILE__)
 
