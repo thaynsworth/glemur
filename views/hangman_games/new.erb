@@ -2,21 +2,24 @@
 
 	<button class="new_game"type="button">New Game</button>
 
-	<div class="word">
-		
-	</div>
+	<div class="word"></div>
+	
+	<h3>Select a Letter</h3>
+		<div class="letter_buttons">
+		<% @letters.each do |letter| %>
+			<button class='letter-button' data-letter="<%= letter %>"><%= letter %></button>
+		<% end %>
+		</div>
 
-	<div>
-	<% @letters.each do |letter| %>
-		<button class='letter-button' data-letter="<%= letter %>"><%= letter %></button>
-	<% end %>
-	</div>
+
 <script>
 
 var gameid;
 
-
-
+function updateGameState(data) {
+	var newArray = data.game_state
+	$(".word").text(newArray);
+}
 
 function newGame() {
 	$.ajax({
@@ -24,15 +27,10 @@ function newGame() {
 		method: "POST",
 		dataType: "json",
 		success: function(data){
-			createLetterArray(data)
+			updateGameState(data)
 			gameid = data.gameid;
 		}
 	});
-}
-
-function createLetterArray(data) {
-	var newArray = data.game_state.split('')
-	$(".word").text(newArray);
 }
 
 function guessLetter(e){
@@ -41,11 +39,10 @@ function guessLetter(e){
 	$.ajax({
 		url: '/hangman_games/' + gameid + '/guess',
 		method: 'PATCH',
+		dataType: 'JSON',
 		data: {guess: letter},
 		success: function(data){
-			alert('Data in console');
-			console.log(data);
-			$(".word").text(data.game_state)
+			updateGameState(data);
 		}
 	}); 
 }
