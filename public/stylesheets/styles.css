@@ -14,3 +14,11 @@ body {
 .profile {
 	border: 2px solid black;
 }
+
+.letter_graveyard {
+	letter-spacing: 10px;
+	font-size: 20px;
+	border: 2px solid black;
+	width: 300px;
+	text-transform: uppercase;
+}

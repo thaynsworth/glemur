@@ -28,15 +28,20 @@ function updateGameState(data) {
 
 function updateGraveyard(data) {
 	var letters = data.num_wrong_guesses
-	$(".letter_graveyard").text(letters);
+	$(".letter_graveyard").text(letters).shift();
 }
 
+// Not working ....  
 function winGameAlert(data) {
 	if (data.word === data.game_state){
 		alert('You Win!');
 	}else{
-		false;
+		alert('You Lose!');
 	}
+}
+function tooManyGuesses(data) {
+	(data.num_wrong_guesses.length >= 5);
+		alert('You Lost');
 }
 
 function newGame() {
@@ -62,7 +67,7 @@ function guessLetter(e){
 		success: function(data){
 			updateGameState(data);
 			updateGraveyard(data);
-			winGameAlert(data);
+			tooManyGuesses(data);
 		}
 	}); 
 }
