@@ -10,3 +10,7 @@ body {
 .letter_buttons {
 	width: 145px;
 }
+
+.profile {
+	border: 2px solid black;
+}

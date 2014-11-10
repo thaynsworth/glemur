@@ -1,4 +1,4 @@
-<h1>New Game</h1>
+<h1>Hangman</h1>
 
 	<button class="new_game"type="button">New Game</button>
 
@@ -10,6 +10,11 @@
 			<button class='letter-button' data-letter="<%= letter %>"><%= letter %></button>
 		<% end %>
 		</div>
+	
+	<h3>Letter Graveyard</h3>
+		<div class="letter_graveyard">
+			
+		</div>
 
 
 <script>
@@ -19,6 +24,19 @@ var gameid;
 function updateGameState(data) {
 	var newArray = data.game_state
 	$(".word").text(newArray);
+}
+
+function updateGraveyard(data) {
+	var letters = data.num_wrong_guesses
+	$(".letter_graveyard").text(letters);
+}
+
+function winGameAlert(data) {
+	if (data.word === data.game_state){
+		alert('You Win!');
+	}else{
+		false;
+	}
 }
 
 function newGame() {
@@ -43,6 +61,8 @@ function guessLetter(e){
 		data: {guess: letter},
 		success: function(data){
 			updateGameState(data);
+			updateGraveyard(data);
+			winGameAlert(data);
 		}
 	}); 
 }
@@ -54,10 +74,9 @@ $(function(){
 
 	$button.on( "click", newGame );
 
-	$('.letter-button').on('click', guessLetter); 
+	$('.letter-button').on('click', guessLetter);
 	
 	$(this).remove();
-
 });
 	
 </script>
