@@ -8,8 +8,17 @@ class HangmanGame < ActiveRecord::Base
     state[idx] = letter
     self.game_state = state
   else
-    self.num_wrong_guesses += letter       # add letter to bad_guesses column
+    self.guessed_letters += letter # add letter to bad_guesses column
   end
+    self.save
+  end
+
+  def game_result(word, game_state)
+    if word == game_state
+      self.wins + 1
+    else
+      self.loses + 1
+    end
     self.save
   end
 

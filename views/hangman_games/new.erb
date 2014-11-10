@@ -1,24 +1,26 @@
-<h1>Hangman</h1>
 
-	<button class="new_game"type="button">New Game</button>
+<div class="body">
+	<h1>Hangman</h1>
+		<button class="new_game"type="button">New Game</button>
 
-	<div class="word"></div>
-	
-	<h3>Select a Letter</h3>
+		<div class="word"></div>
+
+		<h3>Letter Graveyard</h3>
+		<div class="letter_graveyard"></div>
+		
+		<h3>Select a Letter</h3>
+
 		<div class="letter_buttons">
 		<% @letters.each do |letter| %>
 			<button class='letter-button' data-letter="<%= letter %>"><%= letter %></button>
 		<% end %>
 		</div>
-	
-	<h3>Letter Graveyard</h3>
-		<div class="letter_graveyard">
-			
-		</div>
+
+</div>
 
 
 <script>
-
+	
 var gameid;
 
 function updateGameState(data) {
@@ -27,38 +29,40 @@ function updateGameState(data) {
 }
 
 function updateGraveyard(data) {
-	var letters = data.num_wrong_guesses
-	$(".letter_graveyard").text(letters).shift();
+	var letters = data.guessed_letters;
+	$(".letter_graveyard").empty().append(letters);
 }
 
 // Not working ....  
-function winGameAlert(data) {
+function checkWinOrLoss(data) {
 	if (data.word === data.game_state){
 		alert('You Win!');
-	}else{
+	}else if ( data.num_guesses === 5 ){
 		alert('You Lose!');
 	}
 }
-function tooManyGuesses(data) {
-	(data.num_wrong_guesses.length >= 5);
-		alert('You Lost');
-}
+
+// Also not working
+// function tooManyGuesses(data) {
+// 	(data.num_wrong_guesses.length >= 5);
+// 		alert('You Lost');
+// }
 
 function newGame() {
 	$.ajax({
 		url: "/hangman_games/new",
 		method: "POST",
-		dataType: "json",
+		dataType: "JSON",
 		success: function(data){
-			updateGameState(data)
-			gameid = data.gameid;
+			updateGameState(data);
+			gameid = data.id;
 		}
 	});
 }
 
-function guessLetter(e){
-	var letter = $(this).data('letter');
-
+function guessLetter(ctx){
+	var letter = $(ctx).data('letter');
+	debugger;
 	$.ajax({
 		url: '/hangman_games/' + gameid + '/guess',
 		method: 'PATCH',
@@ -67,7 +71,8 @@ function guessLetter(e){
 		success: function(data){
 			updateGameState(data);
 			updateGraveyard(data);
-			tooManyGuesses(data);
+			checkWinOrLoss(data);
+			$(this).remove(); 
 		}
 	}); 
 }
@@ -79,9 +84,14 @@ $(function(){
 
 	$button.on( "click", newGame );
 
-	$('.letter-button').on('click', guessLetter);
+	$('.letter-button').on('click', function(e) {
+		guessLetter(this);
+		$(this).remove();
+	}); 
+		
+
 	
-	$(this).remove();
+	// $(this).remove();
+	
 });
-	
 </script>

@@ -20,17 +20,10 @@ class HangmanGamesController < ApplicationController
     sample_word = ["goat", "sheep", "cow", "lamb", "dog", "ebola", "cheetos", "pasta"].sample
     user_id = current_user.id
     game_state = sample_word.gsub(/\w/, '_')
-    num_guess = 0
 
-    game = HangmanGame.create({user_id: current_user.id, word: sample_word, game_state: game_state, num_wrong_guesses: num_guess})
+    game = HangmanGame.create({user_id: current_user.id, word: sample_word, game_state: game_state, guessed_letters: ""})
 
-    {
-      user_id: user_id,
-      word: sample_word,
-      game_state: game_state,
-      num_wrong_guesses: num_guess,
-      gameid: game.id
-    }.to_json
+    game.to_json
 
   end
 
@@ -41,13 +34,16 @@ class HangmanGamesController < ApplicationController
     game = HangmanGame.find(params[:id])
     guessed_letter = params[:guess].downcase
     game.guess_letter(guessed_letter)
-
+    game.game_result(game.word, game.game_state)
+    num_guesses = game.guessed_letters.length
 
     {
       user_id: game.user_id,
+      word: game.word,
       game_state: game.game_state,
-      num_wrong_guesses: game.num_wrong_guesses,
-      gameid: game.id
+      guessed_letters: game.guessed_letters,
+      gameid: game.id,
+      num_guesses: num_guesses
     }.to_json
   end
 
