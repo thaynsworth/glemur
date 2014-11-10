@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   include BCrypt
 
   has_many :hangman_games
+  has_many :tictac_games
 
   def password
     @password ||= Password.new(self.password_hash)

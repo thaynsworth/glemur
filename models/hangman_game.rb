@@ -8,7 +8,7 @@ class HangmanGame < ActiveRecord::Base
     state[idx] = letter
     self.game_state = state
   else
-    self.num_wrong_guesses += letter.to_s       # add letter to bad_guesses column
+    self.num_wrong_guesses += letter       # add letter to bad_guesses column
   end
     self.save
   end
